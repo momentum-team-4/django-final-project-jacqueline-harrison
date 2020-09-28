@@ -16,14 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.urls import include, path
-from users import views as users
-#from habits import views as habits
+from users import views as users_views
+from habitapp import views as habits_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', users.create_user, name="create_user"),
-    path('users/login/', users.login_user, name="login_user"),
-
+    path('', users_views.create_user, name="create_user"),
+    path('users/login/', users_views.login_user, name="login_user"),
+    path('users/logout/', users_views.logout_user, name="logout_user"),
+    path('habits/add/', habits_views.add_habit, name="add_habit"),
+    path('habits/edit/<int:pk>/', habits_views.edit_habit, name="edit_habit"),
+    path('habits/delete/<int:pk>/', habits_views.delete_habit, name="delete_habit"),
+    path('habits/all_habits/<int:pk>/', habits_views.all_habits, name="all_habits"),
+    path('habits/display_habit/<int:pk>/', habits_views.display_habit, name="display_habit"),
 ]
 
 if settings.DEBUG:
