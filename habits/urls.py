@@ -16,9 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.urls import include, path
+from users import views as users
+#from habits import views as habits
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', users.create_user, name="create_user"),
+    path('users/login/', users.login_user, name="login_user"),
+
 ]
 
 if settings.DEBUG:
