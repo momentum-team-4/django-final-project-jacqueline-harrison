@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
 from django.contrib.messages import success, error
 from .models import Habit
 from .forms import HabitForm
@@ -7,11 +6,11 @@ from .forms import HabitForm
 
 def all_habits(request):
     habits = Habit.objects.all()
-    return render(request, 'habits/all_habits.html'), {"habits": habits}
+    return render(request, 'habits/all_habits.html', {"habits": habits})
 
 def display_habit(request, pk):
     habit = get_object_or_404(Habit, pk=pk)
-    return render(request, 'habits/display_habit.html'), {"habit": habit}
+    return render(request, 'habits/display_habit.html', {"habit": habit})
 
 
 def add_habit(request):
@@ -19,11 +18,11 @@ def add_habit(request):
         form = HabitForm
     
     else:
-        form = HabitForm(data.request.POST)
+        form = HabitForm(request.POST)
         if form.is_valid():
             form.save
 
-        success(request, 'habit created')
+        success(request, 'Habit created')
         return redirect(to='all_habits')
     
     return render(request, 'habits/add_habit.html', {"form": form})
@@ -59,7 +58,7 @@ def delete_habit(request, pk):
 
         return redirect(to='all_habits')
 
-    return render(request, "habits/edit_habit.html", {"form": form})
+    return render(request, "habits/all_habits.html", {"form": form})
 
 
 
