@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages import success, error
@@ -16,12 +16,12 @@ def create_user(request):
         if form.is_valid():
             form.save()
 
-            success(request, 'login created')
+            success(request, 'Login created')
             return redirect(to='login_user')
 
     return render(request, 'users/create_user.html', {'form': form})
 
-
+@login_required
 def login_user(request):
     if request.method == "POST":
         
@@ -30,17 +30,17 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
-            success(request, 'Logged in Successfully')
             login(request, user)
-            redirect(to='display_habits')
+            success(request, 'Logged in Successfully')
+            return redirect(to='all_habits')
 
         else:
-            error(request, 'username/password does not exist')
+            error(request, 'username or password does not exist')
 
     return render(request, 'users/login_user.html')
 
-
+@login_required
 def logout_user(request):
     logout(request)
-    redirect(to='login_user')
+    return redirect(to='login_user')
 

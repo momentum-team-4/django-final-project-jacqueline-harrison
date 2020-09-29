@@ -1,9 +1,11 @@
+import datetime
 from django.db import models
 
-class Habits(models.Model):
-    name = models.CharField(max_length=255, null=False, blank=False)
+class Habit(models.Model):
     goal = models.CharField(max_length=255, null=False, blank=False)
     date = models.DateTimeField(auto_now_add=True)
-    integer = models.IntegerField(null=False, blank=False)
+   
 
+    def __str__(self):
+        return f"{self.goal}"
 

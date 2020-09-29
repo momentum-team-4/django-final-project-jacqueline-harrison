@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+<h2>New Habit Details</h2>
+
+{% block content %}
+    <h3>{{ habit.body}}</h3>
+
+    <p><a href="{% url 'edit_habit' pk=habit.pk %}">Update a Habit</a></p>
+    <p><a href="{% url 'delete_habit' pk=habit.pk %}">Delete a Habit</a></p>
+    <p><a href="{% url 'all_habits' %}">View all Habits</a></p>
+
+{% endblock %}

@@ -11,6 +11,7 @@ django-extensions = "*"
 django-debug-toolbar = "*"
 werkzeug = "*"
 django-environ = "*"
+environ = "*"
 
 [requires]
 python_version = "3.8"

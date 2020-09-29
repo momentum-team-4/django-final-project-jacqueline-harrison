@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2> Update Habit </h2>
+<form method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value='Update Habit'>
+  <a href="{% url 'all_habits' %}">Back to All Habits</a>
+
+
+</form>
+
+{% endblock %}
