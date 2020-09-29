@@ -4,7 +4,7 @@
 <h2>All Habits</h2>
 
     {% for habit in habits %}
-    <p><a href="{% url 'all_habits' pk=habit.pk %}">{{habit.goal}}</a></p>
+    <p><a href="{% url 'display_habit' pk=habit.pk %}">{{habit.goal}}</a></p>
     {% endfor %}
     <p><a href="{% url 'add_habit' %}"> Add a New Habit</a></p>
    

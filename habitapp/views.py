@@ -8,24 +8,10 @@ def all_habits(request):
     habits = Habit.objects.all()
     return render(request, 'habits/all_habits.html', {"habits": habits})
 
+
 def display_habit(request, pk):
     habit = get_object_or_404(Habit, pk=pk)
     return render(request, 'habits/display_habit.html', {"habit": habit})
-
-
-def add_habit(request):
-    if request.method == "GET":
-        form = HabitForm
-    
-    else:
-        form = HabitForm(request.POST)
-        if form.is_valid():
-            form.save
-
-        success(request, 'Habit created')
-        return redirect(to='all_habits')
-    
-    return render(request, 'habits/add_habit.html', {"form": form})
 
 
 def edit_habit(request, pk):
@@ -44,6 +30,22 @@ def edit_habit(request, pk):
         return redirect (to='all_habits')
 
     return render(request, "habits/edit_habit.html"), {"form":form}
+
+
+
+def add_habit(request):
+    if request.method == "GET":
+        form = HabitForm
+    
+    else:
+        form = HabitForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+
+        success(request, 'Habit created')
+        return redirect(to='all_habits')
+    
+    return render(request, 'habits/add_habit.html', {"form": form})
 
 
 
