@@ -32,10 +32,10 @@ def login_user(request):
         if user is not None:
             login(request, user)
             success(request, 'Logged in Successfully')
-           # redirect(to='all_habits')
+            return redirect(to='all_habits')
 
         else:
-            error(request, 'username/password does not exist')
+            error(request, 'username or password does not exist')
 
     return render(request, 'users/login_user.html')
 
