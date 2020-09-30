@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.messages import success, error
+from django.contrib.auth.decorators import login_required
 from .models import Habit
 from .forms import HabitForm
 
-
+@login_required
 def all_habits(request):
     habits = Habit.objects.all()
     return render(request, 'habits/all_habits.html', {"habits": habits})
@@ -29,7 +30,7 @@ def edit_habit(request, pk):
 
         return redirect (to='all_habits')
 
-    return render(request, "habits/edit_habit.html"), {"form":form}
+    return render(request, "habits/edit_habit.html", {"form":form})
 
 
 
