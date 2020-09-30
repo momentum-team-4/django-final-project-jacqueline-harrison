@@ -1,5 +1,5 @@
 body {
-    background-color: darkseagreen;
+    background-color: palegoldenrod
     padding: 0;
 }
 
@@ -14,4 +14,8 @@ form {
 
 input:hover {
     color: rgb(44, 27, 27)
+}
+
+a {
+    background-color: azure;
 }

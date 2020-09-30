@@ -6,9 +6,20 @@
   <meta charset="UTF-8">
   <link rel='stylesheet' href="{% static 'css/style.css' %}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Notes</title>
+  <title>HabitApp</title>
 </head>
 <body>
+  {% if messages %}
+    {% for message in messages %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+        <p class="error-message">{{ message }}</p>
+        {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+        <p class="success-message">{{ message }}</p>
+        {% else %}
+        <p>{{ message }}</p>
+        {% endif %}
+    {% endfor %}
+  {% endif %}
     {% block content %}
     {% endblock %}
 </body>
