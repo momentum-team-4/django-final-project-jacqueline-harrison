@@ -31,6 +31,7 @@ urlpatterns = [
     path('habits/delete/<int:pk>/', habits_views.delete_habit, name="delete_habit"),
     path('habits/all_habits/', habits_views.all_habits, name="all_habits"),
     path('habits/display_habit/<int:pk>/', habits_views.display_habit, name="display_habit"),
+    path('habits/log/<int:pk>', habits_views.log_habit, name='log_habit'),
 ]
 
 if settings.DEBUG:
