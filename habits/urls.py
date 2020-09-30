@@ -22,7 +22,7 @@ from habitapp import views as habits_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',RedirectView.as_view(url='/users/create/')),
+    path('',RedirectView.as_view(url='/accounts/create/')),
     path('accounts/create/', users_views.create_user, name="create_user"),
     path('accounts/login/', users_views.login_user, name="login_user"),
     path('accounts/logout/', users_views.logout_user, name="logout_user"),
