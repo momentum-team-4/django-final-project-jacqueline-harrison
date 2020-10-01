@@ -1,19 +1,35 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.messages import success, error
+from django.contrib.auth.decorators import login_required
 from .models import Habit
 from .forms import HabitForm
+from .models import HabitRecord, habit_timeline
+import datetime as dt
+from django.core.serializers import serialize
+import json
 
 
+@login_required
 def all_habits(request):
-    habits = Habit.objects.all()
+    habits = Habit.objects.filter(user=request.user)
     return render(request, 'habits/all_habits.html', {"habits": habits})
 
-
+@login_required
 def display_habit(request, pk):
     habit = get_object_or_404(Habit, pk=pk)
-    return render(request, 'habits/display_habit.html', {"habit": habit})
+    
+    if HabitRecord.objects.filter(habit=habit, date=dt.date.today()):
+        makeButton = False
+
+    else:
+        makeButton = True
+
+    timeline = json.dumps(habit_timeline(habit))
+
+    return render(request, 'habits/display_habit.html', {"habit": habit, "makeButton": makeButton, "timeline": timeline})
 
 
+@login_required
 def edit_habit(request, pk):
     habit = get_object_or_404(Habit, pk=pk)
 
@@ -29,10 +45,10 @@ def edit_habit(request, pk):
 
         return redirect (to='all_habits')
 
-    return render(request, "habits/edit_habit.html"), {"form":form}
+    return render(request, "habits/edit_habit.html", {"form":form})
 
 
-
+@login_required
 def add_habit(request):
     if request.method == "GET":
         form = HabitForm
@@ -40,7 +56,9 @@ def add_habit(request):
     else:
         form = HabitForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            habit = form.save(commit=False)
+            habit.user = request.user
+            habit.save()
 
         success(request, 'Habit created')
         return redirect(to='all_habits')
@@ -48,7 +66,17 @@ def add_habit(request):
     return render(request, 'habits/add_habit.html', {"form": form})
 
 
+@login_required
+def log_habit(request, pk):
+    habit = get_object_or_404(Habit, pk=pk)
 
+    new_record = HabitRecord(habit=habit)
+    new_record.save()
+    success(request, "Great work! Your task has been logged.")
+
+    return redirect(to='display_habit', pk=pk)
+
+@login_required
 def delete_habit(request, pk):
     if request.method == "GET":
         return render(request, "habits/delete_habit.html")

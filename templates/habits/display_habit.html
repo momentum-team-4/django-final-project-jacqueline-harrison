@@ -5,12 +5,29 @@
 {% block content %}
     <h3>{{ habit.body}}</h3>
 
-    <!--button below is non functional currently. will add in js/django to link it to the habitrecord tomorrow.-->
-    <button type="button">Did Habit Today?</button>
+    {% if makeButton %}
+        <p><a href="{% url 'log_habit' pk=habit.pk %}">Did Habit Today?</a></p>
 
-    <h3>Record of {{habit.body}}</h3>
+    {% endif %}
 
-    <!--need to add chart in here that pulls from django record model and displays it.-->
+    <p><h2>Record of {{habit.body}}</h2></p>
+
+    <canvas></canvas>
+    <script>
+        let timeline = JSON.parse("{{ timeline|escapejs }}")
+        console.log(timeline)
+
+        let chartParams = {
+            type: 'pie',
+            data: timeline,
+        }
+
+        let ctx = document.querySelector('canvas').getContext('2d')
+        let chart = new Chart(ctx, chartParams)
+    </script>
+
+    <!--above is a list of js objects with fields identical to the fields
+    on the models, check in documentation for that-->
 
     <p><a href="{% url 'edit_habit' pk=habit.pk %}">Update a Habit</a></p>
     <p><a href="{% url 'delete_habit' pk=habit.pk %}">Delete a Habit</a></p>
