@@ -1,21 +1,34 @@
 body {
-    background-color: palegoldenrod
-    padding: 0;
+    background-color: cadetblue;
+    margin: 150px;
+
 }
 
 h2 {
-    font-style: oblique;
-    font-family: fantasy;
+    font-style: normal;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+h1 {
+    font-style: normal;
+    font-family: sans-serif;
+    text-align: center;
 }
 
 form {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+    font-family: sans-serif;
 }
 
-input:hover {
-    color: rgb(44, 27, 27)
+input {
+    align-content: center;
 }
 
-a {
-    background-color: azure;
+#page-wrap {
+    width: 800px;
+    margin: 0 auto;
+}
+
+p {
+    text-align: center;
 }

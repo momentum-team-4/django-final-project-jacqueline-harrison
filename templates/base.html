@@ -5,24 +5,14 @@
 <head>
   <meta charset="UTF-8">
   <link rel='stylesheet' href="{% static 'css/style.css' %}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>HabitApp</title>
 </head>
 <body>
   {% if messages %}
-<<<<<<< HEAD
     {% for messages in messages %}
         {{ message }}
-=======
-    {% for message in messages %}
-        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-        <p class="error-message">{{ message }}</p>
-        {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-        <p class="success-message">{{ message }}</p>
-        {% else %}
-        <p>{{ message }}</p>
-        {% endif %}
->>>>>>> 9fd78820ea7124e3174e40d8c7511101db596df3
     {% endfor %}
   {% endif %}
     {% block content %}

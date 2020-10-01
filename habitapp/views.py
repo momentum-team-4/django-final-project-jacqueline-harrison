@@ -3,7 +3,7 @@ from django.contrib.messages import success, error
 from django.contrib.auth.decorators import login_required
 from .models import Habit
 from .forms import HabitForm
-from .models import HabitRecord
+from .models import HabitRecord, habit_timeline
 import datetime as dt
 from django.core.serializers import serialize
 import json
@@ -17,11 +17,6 @@ def all_habits(request):
 @login_required
 def display_habit(request, pk):
     habit = get_object_or_404(Habit, pk=pk)
-<<<<<<< HEAD
-
-    if 
-    return render(request, 'habits/display_habit.html', {"habit": habit})
-=======
     
     if HabitRecord.objects.filter(habit=habit, date=dt.date.today()):
         makeButton = False
@@ -29,13 +24,10 @@ def display_habit(request, pk):
     else:
         makeButton = True
 
-    habit_records = HabitRecord.objects.filter(habit=pk)
-    habit_records_serial = serialize("json", habit_records)
-    print(habit_records_serial)
+    timeline = json.dumps(habit_timeline(habit))
 
-    return render(request, 'habits/display_habit.html', {"habit": habit, "makeButton": makeButton, "serial_habit": habit_records_serial})
+    return render(request, 'habits/display_habit.html', {"habit": habit, "makeButton": makeButton, "timeline": timeline})
 
->>>>>>> 9fd78820ea7124e3174e40d8c7511101db596df3
 
 @login_required
 def edit_habit(request, pk):

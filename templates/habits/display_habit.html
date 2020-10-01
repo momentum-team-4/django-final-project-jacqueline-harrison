@@ -6,18 +6,24 @@
     <h3>{{ habit.body}}</h3>
 
     {% if makeButton %}
-        <a href="{% url 'log_habit' pk=habit.pk %}">Did Habit Today?</a>
+        <p><a href="{% url 'log_habit' pk=habit.pk %}">Did Habit Today?</a></p>
+
     {% endif %}
 
-    <h3>Record of {{habit.body}}</h3>
+    <p><h2>Record of {{habit.body}}</h2></p>
 
     <canvas></canvas>
-
     <script>
-        var habitsJsObjs = JSON.parse("{{ serial_habit|escapejs }}")
-        console.log(habitsJsObjs)
+        let timeline = JSON.parse("{{ timeline|escapejs }}")
+        console.log(timeline)
 
+        let chartParams = {
+            type: 'pie',
+            data: timeline,
+        }
 
+        let ctx = document.querySelector('canvas').getContext('2d')
+        let chart = new Chart(ctx, chartParams)
     </script>
 
     <!--above is a list of js objects with fields identical to the fields
