@@ -9,6 +9,11 @@
   <title>Notes</title>
 </head>
 <body>
+  {% if messages %}
+    {% for messages in messages %}
+        {{ message }}
+    {% endfor %}
+  {% endif %}
     {% block content %}
     {% endblock %}
 </body>

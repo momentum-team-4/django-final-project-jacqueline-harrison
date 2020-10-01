@@ -16,6 +16,8 @@ def all_habits(request):
 @login_required
 def display_habit(request, pk):
     habit = get_object_or_404(Habit, pk=pk)
+
+    if 
     return render(request, 'habits/display_habit.html', {"habit": habit})
 
 @login_required
@@ -45,7 +47,9 @@ def add_habit(request):
     else:
         form = HabitForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            habit = form.save(commit=False)
+            habit.user = request.user
+            habit.save()
 
         success(request, 'Habit created')
         return redirect(to='all_habits')
