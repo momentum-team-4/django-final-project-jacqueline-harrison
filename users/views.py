@@ -24,7 +24,6 @@ def create_user(request):
 
 def login_user(request):
     if request.method == "POST":
-        breakpoint
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
